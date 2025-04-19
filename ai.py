@@ -1,14 +1,19 @@
-import mysql.connector
 import pandas as pd
 from flask import Flask, request, jsonify
 from sklearn.cluster import KMeans
+import os
+from dotenv import load_dotenv
+import mysql.connector
 
-# 📌 MySQL Bağlantısı
+# .env dosyasını yükle
+load_dotenv()
+
+# 📌 MySQL Bağlantısı (env'den okuyoruz)
 conn = mysql.connector.connect(
-    host="sql7.freesqldatabase.com",        
-    user="sql7773114",              
-    password="U15bN418Bxl",  # Şifre
-    database="sql7773114"      # Veritabanı adı
+    host=os.getenv("DB_HOST", "sql7.freesqldatabase.com"),
+    user=os.getenv("DB_USER", "sql7773114"),
+    password=os.getenv("DB_PASS", "U15bN418Bxl"),
+    database=os.getenv("DB_NAME", "sql7773114")
 )
 
 # 1️⃣ Verileri MySQL'den oku
